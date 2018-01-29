@@ -1,6 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+const Button = ({ handleClick, text }) => (
+    <button onClick={handleClick}>
+        {text}
+    </button>
+);
+
+const Statistics = (props) => (
+    <div>
+        <Statistic text="hyvä" value={props.hyva}/>
+        <Statistic text="neutraali" value={props.neutraali}/>
+        <Statistic text="huono" value={props.huono}/>
+        <Statistic text="keskiarvo" value={props.keskiarvo}/>
+        <Statistic text="positiivisia" value={props.positiivisia}/>
+    </div>
+);
+
+const Statistic = (props) => (
+    <p>{props.text} {props.value}</p>
+);
+
 class App extends React.Component {
     constructor() {
         super();
@@ -54,15 +74,17 @@ class App extends React.Component {
         return (
             <div>
                 <h3>anna palautetta</h3>
-                <button onClick={this.createCounterIncrementer('hyva')}>hyvä</button>
-                <button onClick={this.createCounterIncrementer('neutraali')}>neutraali</button>
-                <button onClick={this.createCounterIncrementer('huono')}>huono</button>
+                <Button handleClick={this.createCounterIncrementer('hyva')} text="hyvä"/>
+                <Button handleClick={this.createCounterIncrementer('neutraali')} text="neutraali"/>
+                <Button handleClick={this.createCounterIncrementer('huono')} text="huono"/>
                 <h3>statistiikka</h3>
-                <p>hyvä {this.state.counts.hyva}</p>
-                <p>neutraali {this.state.counts.neutraali}</p>
-                <p>huono {this.state.counts.huono}</p>
-                <p>keskiarvo {this.state.keskiarvo.toFixed(1)}</p>
-                <p>positiivisia {this.state.positiivisia.toFixed(1)} %</p>
+                <Statistics
+                    hyva={this.state.counts.hyva}
+                    neutraali={this.state.counts.neutraali}
+                    huono={this.state.counts.huono}
+                    keskiarvo={this.state.keskiarvo.toFixed(1)}
+                    positiivisia={this.state.positiivisia.toFixed(1) + ' %'}
+                    />
             </div>
         )
     }
