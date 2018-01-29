@@ -4,5 +4,7 @@ Osa 0
 * [Kaaviot](osa0_kaaviot.md)
 
 Osa 1
-* [1.1-1.5 eli React-alkeet](reactin-alkeet/)
-* [1.6-1.8 eli Unicafe](unicafe/)
+* [1.1-1.5 eli React-alkeet](reactin-alkeet/) 
+* [1.6-1.8 eli Unicafe](unicafe/) 
+
+Kun repository kloonattu lokaalille koneelle, React-sovelluksen voi käynnistää kirjoittamalla projektikohtaisessa hakemistossa komennon "npm run start"
