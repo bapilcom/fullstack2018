@@ -1,6 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+const Anecdote = (props) => {
+    return (
+        <div>
+            <p>{props.text}</p>
+            <p>has {props.voteCount} votes</p>
+        </div>
+    );
+};
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -10,7 +19,8 @@ class App extends React.Component {
         }
         this.state = {
             selected: 0,
-            voteCounts: voteCounts
+            voteCounts: voteCounts,
+            winnerIndex: 0
         }
     }
 
@@ -28,17 +38,31 @@ class App extends React.Component {
         this.setState((prevState) => {
             const newState = Object.assign({}, prevState);
             newState.voteCounts[this.state.selected]++;
+            newState.winnerIndex = this.getWinnerIndex(newState.voteCounts);
             return newState;
         });
+    };
+
+    getWinnerIndex = (voteCounts) => {
+        let winnerIndex = -1;
+        let maxVoteCount = -1;
+        for (let i = 0; i < this.props.anecdotes.length; i++) {
+            if (voteCounts[i] > maxVoteCount) {
+                maxVoteCount = voteCounts[i];
+                winnerIndex = i;
+            }
+        }
+        return winnerIndex;
     };
 
     render() {
         return (
             <div>
-                <p>{this.props.anecdotes[this.state.selected]}</p>
-                <p>has {this.state.voteCounts[this.state.selected]} votes</p>
+                <Anecdote text={this.props.anecdotes[this.state.selected]} voteCount={this.state.voteCounts[this.state.selected]}/>
                 <button onClick={this.voteSelected}>vote</button>
                 <button onClick={this.changeSelected}>next anecdote</button>
+                <h3>anecdote with most votes:</h3>
+                <Anecdote text={this.props.anecdotes[this.state.winnerIndex]} voteCount={this.state.voteCounts[this.state.winnerIndex]}/>
             </div>
         )
     }
