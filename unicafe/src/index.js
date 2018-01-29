@@ -5,18 +5,51 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            hyva: 0,
-            neutraali: 0,
-            huono: 0
+            counts: {
+                hyva: 0,
+                neutraali: 0,
+                huono: 0
+            },
+            keskiarvo: 0,
+            positiivisia: 0
         }
     }
     createCounterIncrementer = (statisticId) => {
         return () => {
-            const newState = Object.assign({}, this.state);
-            newState[statisticId] = this.state[statisticId] + 1;
-            this.setState(newState);
+            this.setState((prevState) => {
+                const newState = Object.assign({}, prevState);
+                newState.counts[statisticId]++;
+                newState.keskiarvo = this.calculateAverage(newState.counts);
+                newState.positiivisia = this.calculatePositivePercentage(newState.counts);
+                return newState;
+            });
         };
-    }
+    };
+    calculateAverage = (counts) => {
+        let totalCount = this.getTotalCount(counts);
+        if (totalCount !== 0) {
+            const scores = {
+                'hyva': 1,
+                'neutraali': 0,
+                'huono': -1
+            };
+            let scoreSum = (counts.hyva * scores.hyva) + (counts.neutraali * scores.neutraali) + (counts.huono * scores.huono);
+            return scoreSum / totalCount;
+        } else {
+            return 0;
+        }
+    };
+    calculatePositivePercentage = (counts) => {
+        let totalCount = this.getTotalCount(counts);
+        if (totalCount !== 0) {
+            return counts.hyva / totalCount * 100;
+        } else {
+            return 0;
+        }
+    };
+    getTotalCount = (counts) => {
+        return counts.hyva + counts.neutraali + counts.huono;
+    };
     render() {
         return (
             <div>
@@ -25,9 +58,11 @@ class App extends React.Component {
                 <button onClick={this.createCounterIncrementer('neutraali')}>neutraali</button>
                 <button onClick={this.createCounterIncrementer('huono')}>huono</button>
                 <h3>statistiikka</h3>
-                <p>hyvä {this.state.hyva}</p>
-                <p>neutraali {this.state.neutraali}</p>
-                <p>huono {this.state.huono}</p>
+                <p>hyvä {this.state.counts.hyva}</p>
+                <p>neutraali {this.state.counts.neutraali}</p>
+                <p>huono {this.state.counts.huono}</p>
+                <p>keskiarvo {this.state.keskiarvo.toFixed(1)}</p>
+                <p>positiivisia {this.state.positiivisia.toFixed(1)} %</p>
             </div>
         )
     }
