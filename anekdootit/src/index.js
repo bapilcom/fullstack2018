@@ -3,9 +3,14 @@ import ReactDOM from 'react-dom'
 
 class App extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+        const voteCounts = {};
+        for (let i = 0; i < props.anecdotes.length; i++) {
+            voteCounts[i] = 0;
+        }
         this.state = {
-            selected: 0
+            selected: 0,
+            voteCounts: voteCounts
         }
     }
 
@@ -19,10 +24,20 @@ class App extends React.Component {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
+    voteSelected = () => {
+        this.setState((prevState) => {
+            const newState = Object.assign({}, prevState);
+            newState.voteCounts[this.state.selected]++;
+            return newState;
+        });
+    };
+
     render() {
         return (
             <div>
                 <p>{this.props.anecdotes[this.state.selected]}</p>
+                <p>has {this.state.voteCounts[this.state.selected]} votes</p>
+                <button onClick={this.voteSelected}>vote</button>
                 <button onClick={this.changeSelected}>next anecdote</button>
             </div>
         )
@@ -41,4 +56,4 @@ const anecdotes = [
 ReactDOM.render(
     <App anecdotes={anecdotes} />,
     document.getElementById('root')
-)
+);
