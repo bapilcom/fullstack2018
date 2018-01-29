@@ -7,15 +7,24 @@ const Button = ({ handleClick, text }) => (
     </button>
 );
 
-const Statistics = (props) => (
-    <div>
-        <Statistic text="hyvä" value={props.hyva}/>
-        <Statistic text="neutraali" value={props.neutraali}/>
-        <Statistic text="huono" value={props.huono}/>
-        <Statistic text="keskiarvo" value={props.keskiarvo}/>
-        <Statistic text="positiivisia" value={props.positiivisia}/>
-    </div>
-);
+const Statistics = (props) => {
+    const totalCount = props.hyva + props.neutraali + props.huono;
+    if (totalCount > 0) {
+        return (
+            <div>
+                <Statistic text="hyvä" value={props.hyva}/>
+                <Statistic text="neutraali" value={props.neutraali}/>
+                <Statistic text="huono" value={props.huono}/>
+                <Statistic text="keskiarvo" value={props.keskiarvo}/>
+                <Statistic text="positiivisia" value={props.positiivisia}/>
+            </div>
+        )
+    } else {
+        return (
+            <p>ei yhtään palautetta annettu</p>
+        )
+    }
+};
 
 const Statistic = (props) => (
     <p>{props.text} {props.value}</p>
