@@ -7,12 +7,18 @@ const Kurssi = (props) => {
     )
 };
 
+const Osa = (props) => {
+    return (
+        <p>{props.nimi} {props.tehtavamaara}</p>
+    )
+};
+
 const Sisalto = (props) => {
     return (
         <div>
-            <p>{props.osa1} {props.tehtavia1}</p>
-            <p>{props.osa2} {props.tehtavia2}</p>
-            <p>{props.osa3} {props.tehtavia3}</p>
+            <Osa nimi={props.osa1} tehtavamaara={props.tehtavia1}/>
+            <Osa nimi={props.osa2} tehtavamaara={props.tehtavia2}/>
+            <Osa nimi={props.osa3} tehtavamaara={props.tehtavia3}/>
         </div>
     )
 };
