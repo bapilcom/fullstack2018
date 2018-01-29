@@ -11,13 +11,15 @@ const Statistics = (props) => {
     const totalCount = props.hyva + props.neutraali + props.huono;
     if (totalCount > 0) {
         return (
-            <div>
-                <Statistic text="hyvä" value={props.hyva}/>
-                <Statistic text="neutraali" value={props.neutraali}/>
-                <Statistic text="huono" value={props.huono}/>
-                <Statistic text="keskiarvo" value={props.keskiarvo}/>
-                <Statistic text="positiivisia" value={props.positiivisia}/>
-            </div>
+            <table>
+                <tbody>
+                    <Statistic text="hyvä" value={props.hyva}/>
+                    <Statistic text="neutraali" value={props.neutraali}/>
+                    <Statistic text="huono" value={props.huono}/>
+                    <Statistic text="keskiarvo" value={props.keskiarvo}/>
+                    <Statistic text="positiivisia" value={props.positiivisia}/>
+                </tbody>
+            </table>
         )
     } else {
         return (
@@ -27,7 +29,7 @@ const Statistics = (props) => {
 };
 
 const Statistic = (props) => (
-    <p>{props.text} {props.value}</p>
+    <tr><td>{props.text}</td><td>{props.value}</td></tr>
 );
 
 class App extends React.Component {
