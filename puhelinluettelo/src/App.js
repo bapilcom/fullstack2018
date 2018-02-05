@@ -2,7 +2,7 @@ import React from 'react';
 
 class App extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             persons: [
                 {
@@ -16,17 +16,28 @@ class App extends React.Component {
         }
     }
 
+    personExists = (name) => {
+        return this.state.persons.some((person) => {
+            return person.name.toLowerCase() === name.toLowerCase();
+        });
+    };
+
     addPerson = (event) => {
         event.preventDefault();
-        const personObject = {
-            name: this.state.newName,
-            id: this.state.persons.length + 1
-        };
-        const persons = this.state.persons.concat(personObject);
-        this.setState({
-            persons: persons,
-            newName: ''
-        });
+        let personName = this.state.newName;
+        if (!this.personExists(personName)) {
+            const personObject = {
+                name: personName,
+                id: this.state.persons.length + 1
+            };
+            const persons = this.state.persons.concat(personObject);
+            this.setState({
+                persons: persons,
+                newName: ''
+            });
+        } else {
+            alert('Henkilö ' + personName + ' on jo luettelossa');
+        }
     };
 
     handlePersonNameChange = (event) => {
