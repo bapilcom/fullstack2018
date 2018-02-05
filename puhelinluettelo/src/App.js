@@ -1,6 +1,17 @@
 import React from 'react';
 import personService from './services/personService'
 
+const Notification = ({ message }) => {
+    if (message === null) {
+        return null
+    }
+    return (
+        <div className="message">
+            {message}
+        </div>
+    )
+}
+
 const Person = (props) => {
     return (<p key={props.person.name}>{props.person.name}</p>);
 };
@@ -59,8 +70,14 @@ class App extends React.Component {
                     this.setState({
                         persons: persons,
                         newName: '',
-                        newNumber: ''
+                        newNumber: '',
+                        message: 'Lisättiin henkilö'
                     });
+                    setTimeout(() => {
+                        this.setState({
+                            message: ''
+                        });
+                    }, 2000)
                 });
         } else {
             alert('Henkilö ' + personName + ' on jo luettelossa');
@@ -92,6 +109,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <Notification message={this.state.message}/>
                 <h2>Puhelinluettelo</h2>
                 rajaa näytettäviä:
                 <input
