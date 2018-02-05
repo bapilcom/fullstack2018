@@ -81,9 +81,12 @@ class App extends React.Component {
 
     handleRemoveFirst = () => {
         const person = this.state.persons[0];
-        personService.removeById(person.id).then(() => {
-            this.setState({ persons: this.state.persons.slice(1) });
-        });
+        const doRemove = window.confirm('Poistetaanko henkilö ' + person.name);
+        if (doRemove) {
+            personService.removeById(person.id).then(() => {
+                this.setState({persons: this.state.persons.slice(1)});
+            });
+        }
     };
 
     render() {
