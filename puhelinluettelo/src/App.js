@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const Person = (props) => {
     return (<p key={props.person.name}>{props.person.name}</p>);
@@ -23,18 +24,19 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            persons: [
-                {
-                    name: 'Arto Hellas'
-                },
-                {
-                    name: 'Esko Kukkonen'
-                }
-            ],
+            persons: [],
             newName: '',
             newNumber: '',
             filterName: ''
         }
+    }
+
+    componentDidMount() {
+        axios
+            .get('http://localhost:3001/persons')
+            .then(response => {
+                this.setState({ persons: response.data })
+            })
     }
 
     personExists = (name) => {
