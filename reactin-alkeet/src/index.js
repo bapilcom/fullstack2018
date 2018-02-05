@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom'
 
 const Kurssi = (props) => {
     return (
-        <h1>{props.kurssi}</h1>
+        <div>
+            <h1>{props.kurssi.nimi}</h1>
+            <Sisalto osat={props.kurssi.osat} />
+            <Yhteensa osat={props.kurssi.osat} />
+        </div>
     )
 };
 
@@ -16,9 +20,9 @@ const Osa = (props) => {
 const Sisalto = (props) => {
     return (
         <div>
-            <Osa nimi={props.osat[0].nimi} tehtavamaara={props.osat[0].tehtavia}/>
-            <Osa nimi={props.osat[1].nimi} tehtavamaara={props.osat[1].tehtavia}/>
-            <Osa nimi={props.osat[2].nimi} tehtavamaara={props.osat[2].tehtavia}/>
+            {props.osat.map(osa =>
+                <Osa nimi={osa.nimi} tehtavamaara={osa.tehtavia}/>
+            )}
         </div>
     )
 };
@@ -35,24 +39,30 @@ const App = () => {
         osat: [
             {
                 nimi: 'Reactin perusteet',
-                tehtavia: 10
+                tehtavia: 10,
+                id: 1
             },
             {
                 nimi: 'Tiedonvälitys propseilla',
-                tehtavia: 7
+                tehtavia: 7,
+                id: 2
             },
             {
                 nimi: 'Komponenttien tila',
-                tehtavia: 14
+                tehtavia: 14,
+                id: 3
+            },
+            {
+                nimi: 'Redux',
+                tehtavia: 7,
+                id: 4
             }
         ]
     };
 
     return (
         <div>
-            <Kurssi kurssi={kurssi.nimi}/>
-            <Sisalto osat={kurssi.osat} />
-            <Yhteensa osat={kurssi.osat} />
+            <Kurssi kurssi={kurssi}/>
         </div>
     )
 };
