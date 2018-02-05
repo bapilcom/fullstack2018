@@ -79,6 +79,13 @@ class App extends React.Component {
         this.setState({ filterName: event.target.value });
     };
 
+    handleRemoveFirst = () => {
+        const person = this.state.persons[0];
+        personService.removeById(person.id).then(() => {
+            this.setState({ persons: this.state.persons.slice(1) });
+        });
+    };
+
     render() {
         return (
             <div>
@@ -110,6 +117,7 @@ class App extends React.Component {
                 </form>
                 <h2>Numerot</h2>
                 <PersonList persons={this.state.persons} filterName={this.state.filterName}/>
+                <button onClick={this.handleRemoveFirst}>poista ensimmäinen</button>
             </div>
         )
     }
