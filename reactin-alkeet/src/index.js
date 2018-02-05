@@ -28,8 +28,9 @@ const Sisalto = (props) => {
 };
 
 const Yhteensa = (props) => {
+    const tehtavaSum = props.osat.reduce((accumulator, osa) => accumulator + osa.tehtavia, 0);
     return (
-        <p>yhteensä {props.osat[0].tehtavia + props.osat[1].tehtavia + props.osat[2].tehtavia} tehtävää</p>
+        <p>yhteensä {tehtavaSum} tehtävää</p>
     )
 };
 
