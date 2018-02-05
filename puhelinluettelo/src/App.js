@@ -28,12 +28,14 @@ class App extends React.Component {
         if (!this.personExists(personName)) {
             const personObject = {
                 name: personName,
+                number: this.state.newNumber,
                 id: this.state.persons.length + 1
             };
             const persons = this.state.persons.concat(personObject);
             this.setState({
                 persons: persons,
-                newName: ''
+                newName: '',
+                newNumber: ''
             });
         } else {
             alert('Henkilö ' + personName + ' on jo luettelossa');
@@ -41,8 +43,11 @@ class App extends React.Component {
     };
 
     handlePersonNameChange = (event) => {
-        console.log(event.target.value);
         this.setState({ newName: event.target.value });
+    };
+
+    handlePersonNumberChange = (event) => {
+        this.setState({ newNumber: event.target.value });
     };
 
     render() {
@@ -55,6 +60,13 @@ class App extends React.Component {
                         <input
                             value={this.state.newName}
                             onChange={this.handlePersonNameChange}
+                        />
+                    </div>
+                    <div>
+                        numero:
+                        <input
+                            value={this.state.newNumber}
+                            onChange={this.handlePersonNumberChange}
                         />
                     </div>
                     <div>
