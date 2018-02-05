@@ -12,7 +12,9 @@ class App extends React.Component {
                     name: 'Esko Kukkonen'
                 }
             ],
-            newName: ''
+            newName: '',
+            newNumber: '',
+            filterName: ''
         }
     }
 
@@ -50,10 +52,20 @@ class App extends React.Component {
         this.setState({ newNumber: event.target.value });
     };
 
+    handleFilterNameChange = (event) => {
+        this.setState({ filterName: event.target.value });
+    };
+
     render() {
         return (
             <div>
                 <h2>Puhelinluettelo</h2>
+                rajaa näytettäviä:
+                <input
+                    value={this.state.filterName}
+                    onChange={this.handleFilterNameChange}
+                />
+                <h2>Lisää uusi</h2>
                 <form onSubmit={this.addPerson}>
                     <div>
                         nimi:
@@ -75,7 +87,11 @@ class App extends React.Component {
                 </form>
                 <h2>Numerot</h2>
                 <div>
-                    {this.state.persons.map(person =>
+                    {this.state.persons
+                        .filter(person => {
+                            return (person.name.indexOf(this.state.filterName) !== -1);
+                        })
+                        .map(person =>
                         (<p key={person.name}>{person.name}</p>)
                     )}
                 </div>
