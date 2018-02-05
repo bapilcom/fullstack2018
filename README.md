@@ -8,6 +8,10 @@ Osa 1
 * [Unicafe](unicafe/) 
 * [Anekdootit](anekdootit/) 
 
+Osa 2
+* [React-alkeet](reactin-alkeet/) 
+* [Puhelinluettelo](puhelinluettelo/) 
+
 Kun repository kloonattu lokaalille koneelle, React-sovelluksen voi käynnistää projektikohtaisessa hakemistossa:
 * "npm install" (asennetaan apukirjastot yms.)
 * "npm run start" (käynnistetään sovellus selaimessa)
