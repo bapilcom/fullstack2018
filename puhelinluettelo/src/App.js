@@ -1,5 +1,24 @@
 import React from 'react';
 
+const Person = (props) => {
+    return (<p key={props.person.name}>{props.person.name}</p>);
+};
+
+const PersonList = (props) => {
+    return (
+        <div>
+            {props.persons
+                .filter(person => {
+                    return (person.name.indexOf(props.filterName) !== -1);
+                })
+                .map(person =>
+                    (<Person key={person.name} person={person}/>)
+                )}
+        </div>
+    )
+};
+
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -86,15 +105,7 @@ class App extends React.Component {
                     </div>
                 </form>
                 <h2>Numerot</h2>
-                <div>
-                    {this.state.persons
-                        .filter(person => {
-                            return (person.name.indexOf(this.state.filterName) !== -1);
-                        })
-                        .map(person =>
-                        (<p key={person.name}>{person.name}</p>)
-                    )}
-                </div>
+                <PersonList persons={this.state.persons} filterName={this.state.filterName}/>
             </div>
         )
     }
